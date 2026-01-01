@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaniMart Qurban - Solusi Qurban Digital Modern</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <style>
+        /* --- VARIABLE & RESET --- */
+        :root {
+            /* Warna Baru: #1B5E20 Base */
+            --primary: #1B5E20; 
+            --primary-light: #43A047; /* Green 600 */
+            --accent: #66BB6A; /* Green 400 */
+            --secondary: #E8F5E9; /* Green 50 */
+            --text-dark: #1b262c;
+            --text-grey: #546e7a;
+            --text-light: #ffffff;
+            
+            /* Gradient Modern Agritech */
+            --gradient: linear-gradient(135deg, #072b01 0%, #043d17 100%);
+            
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-hover: 0 12px 24px rgba(27, 94, 32, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-dark);
+            background-color: #f9fbf9;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- UI COMPONENTS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 36px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            border: none;
+            box-shadow: var(--shadow);
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 25px rgba(27, 94, 32, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--text-light);
+            color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* --- ADVANCED ANIMATED NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--gradient);
+            z-index: 1000;
+            padding-bottom: 0; 
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 15px; 
+            align-items: center;
+        }
+
+        /* --- NAV LINK ESTETIK --- */
+        .nav-link {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 24px; 
+            border-radius: 50px; 
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.15); 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+        
+        .nav-link::after {
+            content: none; 
+        }
+
+        /* --- REVISI: NEW ATTRACTIVE DOWNLOAD BUTTON --- */
+        .nav-btn-cta {
+            background: linear-gradient(45deg, #036d13, #014222); /* Amber Gradient */
+            color: white !important;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 10px 24px;
+            border-radius: 50px;
+            display:inline;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(2, 109, 63, 0.4);
+            transition: var(--transition);
+        }
+
+        .nav-btn-cta:hover {
+            background: linear-gradient(45deg, #19db49, #018218);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(2, 92, 51, 0.6);
+        }
+
+        .nav-btn-cta .material-icons {
+            font-size: 1.2rem;
+        }
+
+        .hamburger {
+            display: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        /* --- THE ANIMATED WAVE CONTAINER --- */
+        .waves-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            margin-bottom: -7px;
+            min-height: 100px;
+            max-height: 150px;
+            background: transparent;
+        }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        .parallax > use {
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) {
+            animation-delay: -2s;
+            animation-duration: 7s;
+        }
+        .parallax > use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+        .parallax > use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+        .parallax > use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        /* --- HERO CAROUSEL --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 800px;
+            overflow: hidden;
+            
+            /* Posisi: Padding Top Besar & Flex Start */
+            /**padding-top: -10px; **/
+            margin-top: 130px !important;
+            
+            display: block;
+            align-items: flex-start;
+            justify-content: center;
+            
+            margin-top: 0;
+            background-color: transparent; 
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            color: #000000;
+            padding: 0 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            margin-top: -95px !important; 
+        }
+
+        /* REVISI: TYPOGRAPHY YANG LEBIH TAJAM & KOKOH */
+        .hero-title {
+            font-size: 3.5rem;
+            margin-top: 350px !important;
+            margin-bottom: 1.5rem;
+            font-weight: 800; /* Extra Bold */
+            line-height: 1.2;
+            color: #fff;
+            /* Multi-layer text shadow untuk kontras tinggi tanpa overlay */
+            text-shadow: 
+                0 4px 8px rgba(0,0,0,0.9), 
+                0 2px 4px rgba(0,0,0,0.8),
+                0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            font-weight: 600; /* Semi Bold */
+            opacity: 1;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #ffffff;
+            /* Text shadow tajam agar terbaca di background apapun */
+            text-shadow: 
+                0 3px 6px rgba(0,0,0,0.9),
+                0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.6); 
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Tambah shadow agar dot terlihat */
+        }
+
+        .dot.active {
+            background: var(--primary-light); 
+            transform: scale(1.3);
+            width: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* --- FEATURES SECTION --- */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            color: var(--primary-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-desc {
+            color: var(--text-grey);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px auto;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon-wrapper {
+            background: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .feature-icon { font-size: 2.5rem; }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        .feature-card p { color: var(--text-grey); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- ABOUT SECTION --- */
+        .about-section {
+            background-color: white;
+        }
+
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .about-image {
+            flex: 1 1 450px;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 25px;
+            box-shadow: var(--shadow-hover);
+            z-index: 2;
+            position: relative;
+        }
+
+        .about-bg-shape {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--accent);
+            border-radius: 25px;
+            z-index: 1;
+        }
+
+        .about-text {
+            flex: 1 1 450px;
+        }
+
+        /* --- PELOPOR SECTION --- */
+        .pelopor-section {
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(27, 94, 32, 0.05);
+            z-index: 0;
+        }
+        .b1 { width: 300px; height: 300px; top: -50px; right: -50px; }
+        .b2 { width: 150px; height: 150px; bottom: 50px; left: 50px; }
+
+        .pelopor-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+
+        .benefit-item:hover { transform: translateX(10px); }
+
+        .benefit-item .material-icons {
+            color: var(--primary);
+            margin-right: 15px;
+            background: var(--secondary);
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        /* --- DOWNLOAD SECTION --- */
+        .download-section {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .download-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            background: #000;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .store-btn:hover {
+            transform: scale(1.05);
+            background: #222;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #111;
+            color: #ccc;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { transition: 0.2s; }
+        .footer-links a:hover { color: var(--accent); padding-left: 5px; }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgb(1, 58, 17);
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+                z-index: 9;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            /* Reset style untuk mobile agar tombol tidak aneh */
+            .nav-link, .nav-btn-cta { 
+                color: var(--text-light) !important; 
+                width: 80%; 
+                text-align: center;
+                margin: 5px 0;
+                justify-content: center;
+            }
+            
+            .nav-link:hover {
+                background-color: var(--secondary);
+                color: var(--primary) !important;
+                transform: none;
+            }
+            
+            .hamburger { display: block; }
+
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .waves-container { height: 60px; min-height: 60px; }
+            
+            .about-container { flex-direction: column; }
+            .about-image, .about-text { flex: 1 1 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" style="width: 200px;"/>
+            </a>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="material-icons" style="font-size: 2rem;">menu</span>
+            </div>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Keunggulan</a></li>
+                <li><a href="#about" class="nav-link">Tentang Kami</a></li>
+                <li><a href="#pelopor" class="nav-link">Jadi Pelopor</a></li>
+                <li>
+                    <a href="#download" class="nav-btn-cta">
+                        Download Apps
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="waves-container">
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" style="width: 100%; height: 100%;">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(249,251,249,0.7)" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(249,251,249,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(249,251,249,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#ffffff" />
+                </g>
+            </svg>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="carousel-slide active" style="background-image: url('slide_1.jpg');">
+            <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
+                <h1 class="hero-title">Amanah Qurban Hingga Pelosok Negeri</h1>
+                <p class="hero-subtitle">Platform digital yang menghubungkan Anda langsung dengan peternak sapi lokal terbaik dengan transparansi 100%.</p>
+                <a href="#features" class="btn btn-primary ripple-btn">Pesan Qurban Anda Sekarang</a>
+            </div>
+        </div>
+        <div class="carousel-slide" style="background-image: url('slide1.jpg');">
+            <div class="hero-content">
+                <h1 class="hero-title">Berdayakan Ekonomi Peternak Lokal</h1>
+                <p class="hero-subtitle">Jadilah bagian dari gerakan kesejahteraan peternak Indonesia melalui TaniMart Qurban.</p>
+                <a href="#pelopor" class="btn btn-primary ripple-btn">Bergabunglah Menjadi Pelopor</a>
+            </div>
+        </div>
+        
+        <div class="carousel-dots" id="dots">
+            </div>
+    </header>
+
+    <section id="features">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">Kenapa Kami</span>
+            <h2 class="section-title">Keunggulan TaniMart Qurban</h2>
+            <p class="section-desc">Kombinasi teknologi modern dan nilai syariah untuk pengalaman berqurban yang lebih baik.</p>
+        </div>
+        <div class="grid-container">
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon-wrapper">
+                    <img src="Bank_BRI_2000.svg" style="width: 42px;">
+                </div>
+                <h3>Semua Transaksi Bekerja Sama &amp; Dijamin Oleh Bank BRI</h3>
+                <p>TaniMart Qurban Bekerja Sama dan Dijaminan Transaksi Pembayaran oleh Bank BRI </p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon-wrapper">
+                    <span class="material-icons feature-icon">health_and_safety</span>
+                </div>
+                <h3>Sapi Sehat & Syar'i</h3>
+                <p>Jaminan hewan bebas penyakit (PMK) yang dilengkapi dengan Surat Keterangan dari Dokter Hewan/Dinas Peternakan, qualitas premium dan memenuhi syarat umur serta fisik sesuai syariat Islam.</p>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon-wrapper">
+                    <span class="material-icons feature-icon">qr_code_2</span>
+                </div>
+                <h3>Tracking Pesanan Qurban</h3>
+                <p>Dapatkan informasi dan pantau proses pengiriman/distribusi sapi qurban via aplikasi secara realtime.</p>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon-wrapper">
+                    <span class="material-icons feature-icon">storefront</span>
+                </div>
+                <h3>Langsung Peternak</h3>
+                <p>Harga lebih terjangkau tanpa perantara, keuntungan langsung dirasakan oleh peternak desa (Pelopor).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="about-image" data-aos="fade-right">
+                <div class="about-bg-shape"></div>
+                <img src="slide_utama.png" alt="Petani Indonesia">
+            </div>
+            <div class="about-text" data-aos="fade-left">
+                <span class="section-label">Tentang Kami</span>
+                <h2 class="section-title">Teknologi untuk Ummat</h2>
+                <p style="margin-bottom: 20px; line-height: 1.8; color: var(--text-grey);">
+                    TaniMart Qurban lahir dari keresahan akan sulitnya akses pasar bagi peternak sapi lokal dan kurangnya transparansi dalam jual beli hewan qurban konvensional.
+                    <br><br>
+                    Kami hadir sebagai jembatan teknologi. Melalui ekosistem TaniMart Qurban, shohibul qurban dapat memilih hewan terbaik dari kandang mitra kami, sementara peternak mendapatkan kepastian penjualan dan harga yang adil.
+                </p>
+                <a href="#" class="btn btn-primary ripple-btn" style="margin-top: 10px; display: none;">Pelajari Ekosistem Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="pelopor" class="pelopor-section">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+
+        <div class="grid-container pelopor-content" style="align-items: center;">
+            <div data-aos="fade-right">
+                <span class="section-label">Peluang Pelopor (Mitra)</span>
+                <h2 class="section-title">Bergabung Menjadi Pelopor</h2>
+                <p style="color: var(--text-grey); margin-bottom: 20px;">Dapatkan keberkahan dan penghasilan tambahan dan penjualan yang meningkat dengan menjadi Pelopor (Mitra) resmi TaniMart Qurban di wilayah Anda.</p>
+                
+                <ul class="benefit-list">
+                    <li class="benefit-item">
+                        <span class="material-icons">monetization_on</span>
+                        <div>
+                            <strong>Meningkatkan Penjualan Sapi </strong><br>
+                            <span style="font-size:0.85rem; color:#777;">TaniMart Qurban memberikan ruang yang lebih luas untuk menjangkau pelanggan Anda diseluruh pelosok negeri.</span>
+                        </div>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="material-icons">analytics</span>
+                        <div>
+                            <strong>Aplikasi Manajemen</strong><br>
+                            <span style="font-size:0.85rem; color:#777;">Pantau penjualan tim Anda lewat dashboard khusus.</span>
+                        </div>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="material-icons">school</span>
+                        <div>
+                            <strong>Pelatihan Gratis</strong><br>
+                            <span style="font-size:0.85rem; color:#777;">Bimbingan marketing digital dari tim ahli TaniMart Qurban.</span>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-primary btn-block ripple-btn">Daftar Jadi Pelopor</a>
+            </div>
+            <div data-aos="zoom-in" style="text-align: center; position: relative;">
+                <div class="about-image" data-aos="fade-right">
+                    <div class="about-bg-shape"></div>
+                    <img src="pelopor_apps.png" alt="Pelopor TaniMart Qurban Apps">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download-section">
+        <div class="download-wrapper" data-aos="fade-up">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 700;">Ibadah Qurban dalam Genggaman</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Download aplikasi TaniMart Qurban sekarang. Pilih sapi, bayar, dan pantau/tracking proses pengiriman langsung dari smartphone Anda secara realtime.</p>
+            
+            <div class="app-buttons">
+                <a href="#" class="store-btn">
+                    <span class="material-icons" style="font-size: 2rem;">android</span>
+                    <div style="text-align: left;">
+                        <span style="font-size: 0.7rem; display: block; opacity: 0.8;">GET IT ON</span>
+                        <span style="font-size: 1.1rem; font-weight: bold;">Google Play</span>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <span class="material-icons" style="font-size: 2rem;">apple</span>
+                    <div style="text-align: left;">
+                        <span style="font-size: 0.7rem; display: block; opacity: 0.8;">Download on the</span>
+                        <span style="font-size: 1.1rem; font-weight: bold;">App Store</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <img src="logo.png" style="width: 240px;"/>
+                </div>
+                <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.7;">
+                    Platform agritech terdepan yang menghubungkan kebaikan shohibul qurban dengan kesejahteraan peternak Indonesia.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak</h4>
+                <ul class="footer-links">
+                    <li><span class="material-icons" style="font-size: 1rem; vertical-align: middle; margin-right: 5px;">email</span> info@tanimartqurban.com</li>
+                    <li><span class="material-icons" style="font-size: 1rem; vertical-align: middle; margin-right: 5px;">phone</span> +62 882-0001-81913</li>
+                    <li><span class="material-icons" style="font-size: 1rem; vertical-align: middle; margin-right: 5px;">place</span> Jakarta, Indonesia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 TaniMart Qurban. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // --- 1. INITIALIZE AOS ANIMATION ---
+        AOS.init({
+            once: true,
+            offset: 120,
+            duration: 800,
+            easing: 'ease-out-cubic'
+        });
+
+        // --- 2. MOBILE MENU LOGIC ---
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // Toggle icon betwen menu and close
+            const iconSpan = hamburger.querySelector('span');
+            iconSpan.innerText = navMenu.classList.contains('active') ? 'close' : 'menu';
+            iconSpan.style.color = navMenu.classList.contains('active') ? 'var(--primary)' : 'white';
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('span').innerText = 'menu';
+                hamburger.querySelector('span').style.color = 'white';
+            });
+        });
+
+        // --- 3. CAROUSEL LOGIC ---
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.getElementById('dots');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Create Dots dynamically
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function goToSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Auto slide every 6 seconds
+        let slideInterval = setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 6000);
+
+        // Pause auto slide on interaction (optional but good UX)
+        document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(slideInterval));
+        document.querySelector('.hero').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => goToSlide(currentSlide + 1), 6000);
+        });
+
+        // --- 4. RIPPLE EFFECT ---
+        const buttons = document.querySelectorAll('.ripple-btn');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                ripples.classList.add('ripple');
+                
+                this.appendChild(ripples);
+
+                setTimeout(() => {
+                    ripples.remove();
+                }, 600);
+            });
+        });
+
+    </script>
+</body>
+</html>
